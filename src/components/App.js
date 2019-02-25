@@ -12,7 +12,7 @@ import '../App.css';
 class App extends Component {
   render() {
     return (
-      <div className="container">
+      <div className="container-fluid">
         
           <div className="App">
             {/*Navigation Starts*/}
@@ -34,8 +34,9 @@ class App extends Component {
               </div>
             </Router>
             {/*Routing Ends*/}
-        <Footer />
+        
         </div>
+        <Footer />
       </div>
     );
   }

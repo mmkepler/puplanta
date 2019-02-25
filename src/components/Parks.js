@@ -10,35 +10,37 @@ export default class Parks extends Component {
   render() {
     return (
       <div>
-        <h1>Here are the greater Atlanta dog parks</h1>
+        <h1>Atlanta Dog Parks</h1>
         <p>Click on a location for address and link</p>
-      <Map
-        id="myMap"
-        options={{
-          center: { lat: 33.8884544, lng: -84.3842454 },
-          zoom: 9.4
+        <div className='park-map-holder'>
+        <Map
+          id="myMap"
+          options={{
+            center: { lat: 33.8884544, lng: -84.3842454 },
+            zoom: 9.4
 
-        }}
-        onMapLoad={map => {
-          park_locations.forEach( el => {
-            let window_info = `<div id="window-content"> <a id="title-link" target="_blank" rel="noopener" href=${el.properties.website}> <p id="title"> ${el.properties.title} </p> </a><p className="address"> ${el.properties.address} </p></div>`;
-            console.log(el.properties.website);
-            var infowindow = new window.google.maps.InfoWindow({
-              content: window_info
+          }}
+          onMapLoad={map => {
+            park_locations.forEach( el => {
+              let window_info = `<div id="window-content"> <a id="title-link" target="_blank" rel="noopener" href=${el.properties.website}> <p id="title"> ${el.properties.title} </p> </a><p className="address"> ${el.properties.address} </p></div>`;
+              //console.log(el.properties.website);
+              var infowindow = new window.google.maps.InfoWindow({
+                content: window_info
+              });
+              var marker = new window.google.maps.Marker({
+              position: { lat: el.geometry.coordinates[1], lng: el.geometry.coordinates[0] },
+              map: map,
+              title: el.properties.title
             });
-            var marker = new window.google.maps.Marker({
-            position: { lat: el.geometry.coordinates[1], lng: el.geometry.coordinates[0] },
-            map: map,
-            title: el.properties.title
-          });
-          marker.addListener('click', function() {
-            infowindow.open(map, marker);
-          });
-          //console.log(el.properties.title);
-          });
-          
-        }}
+            marker.addListener('click', function() {
+              infowindow.open(map, marker);
+            });
+            //console.log(el.properties.title);
+            });
+            
+          }}
       />
+      </div>
       </div>
     )
   }
